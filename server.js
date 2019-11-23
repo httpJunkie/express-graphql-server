@@ -1,9 +1,9 @@
-var express = require('express')
-var express_graphql = require('express-graphql')
-var { buildSchema } = require('graphql')
+const express = require('express')
+const express_graphql = require('express-graphql')
+const { buildSchema } = require('graphql')
 
 // GraphQL Schema
-var schema = buildSchema(`
+const schema = buildSchema(`
   type Query {
     blog(id: Int!): Blog
     blogs(topic: String): [Blog]
@@ -20,7 +20,7 @@ var schema = buildSchema(`
   }
 `)
 
-var blogData = [
+let blogData = [
   {
     id: 1,
     title: 'Preferred Color Scheme in React',
@@ -44,12 +44,12 @@ var blogData = [
   },
 ]
 
-var getBlog = (args) => {
+const getBlog = (args) => {
   let id = args.id
   return blogData.find(b => b.id === id)
 }
 
-var getBlogs = (args) => {
+const getBlogs = (args) => {
   if(args.topic) {
     let topic = args.topic
     return blogData.filter(b => b.topic === topic)
@@ -59,7 +59,7 @@ var getBlogs = (args) => {
   return blogData.find(b => b.id === id)
 }
 
-var updateBlogTopic = ({id, topic}) => {
+const updateBlogTopic = ({id, topic}) => {
   blogData.map(b => {
     if(b.id === id) {
       b.topic = topic
@@ -70,17 +70,17 @@ var updateBlogTopic = ({id, topic}) => {
 }
 
 // Root Resolver
-var root = {
+const root = {
   blog: getBlog,
   blogs: getBlogs,
   updateBlogTopic: updateBlogTopic
 }
 
 // Create an Express Server and GraphQL endpoint
-var serverPort = 4000
-var gqlEndpoint = '/graphql'
+const serverPort = 4000
+const gqlEndpoint = '/graphql'
 
-var app = express()
+const app = express()
 app.use(gqlEndpoint, express_graphql({
   schema: schema,
   rootValue: root,
