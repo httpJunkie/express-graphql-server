@@ -1,8 +1,9 @@
 const express = require('express')
-const express_graphql = require('express-graphql')
+const graphqlHTTP = require('express-graphql')
 const { buildSchema } = require('graphql')
 
-// GraphQL Schema
+let { getBlog, getBlogs, updateBlogTopic } = require("./resolvers")
+
 const schema = buildSchema(`
   type Query {
     blog(id: Int!): Blog
@@ -20,56 +21,6 @@ const schema = buildSchema(`
   }
 `)
 
-let blogData = [
-  {
-    id: 1,
-    title: 'Preferred Color Scheme in React',
-    author: 'Eric Bishard',
-    topic: 'React',
-    url: 'https://www.reactstateofmind.com/preferred-color-scheme-in-react'
-  },
-  {
-    id: 2,
-    title: 'A Guide to Learning React Hooks',
-    author: 'Eric Bishard',
-    topic: 'Hooks',
-    url: 'https://www.reactstateofmind.com/a-guide-to-learning-react-hooks'
-  },
-  {
-    id: 3,
-    title: 'React Accessibility Resources',
-    author: 'Eric Bishard',
-    topic: 'React',
-    url: 'https://www.reactstateofmind.com/react-accessibility-resources'
-  },
-]
-
-const getBlog = (args) => {
-  let id = args.id
-  return blogData.find(blog => blog.id === id)
-}
-
-const getBlogs = (args) => {
-  if(args.topic) {
-    let topic = args.topic
-    return blogData.filter(blog => blog.topic === topic)
-  }else {
-    return blogData
-  }
-  return blogData.find(blog => blog.id === id)
-}
-
-const updateBlogTopic = ({id, topic}) => {
-  blogData.map(blog => {
-    if(blog.id === id) {
-      blog.topic = topic
-      return blog
-    }
-  })
-  return blogData.find(blog => blog.id === id)
-}
-
-// Root Resolver
 const root = {
   blog: getBlog,
   blogs: getBlogs,
@@ -78,17 +29,17 @@ const root = {
 
 // Create an Express Server and GraphQL endpoint
 const serverPort = 4000
-const gqlEndpoint = '/graphql'
+const serverUrl = '/graphql'
 
 const app = express()
-app.use(gqlEndpoint, express_graphql({
+app.use(serverUrl, graphqlHTTP({
   schema: schema,
   rootValue: root,
   graphiql: true
 }))
 
 app.listen(serverPort, () => {
-  let message = `GraphQL server now running on http://localhost:${serverPort}${gqlEndpoint}`
+  let message = `GraphQL server now running on http://localhost:${serverPort}${serverUrl}`
   console.log(message)
 })
 
