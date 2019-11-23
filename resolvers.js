@@ -12,7 +12,6 @@ module.exports = {
     }else {
       return blogData
     }
-    return blogData.find(blog => blog.id === id)
   },
   updateBlogTopic: ({id, topic}) => {
     blogData.map(blog => {

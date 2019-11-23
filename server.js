@@ -62,7 +62,7 @@ app.listen(serverPort, () => {
 
 */
 
-/* Sample GraphiQL Query (Get Blog by Topic):
+/* Sample GraphiQL Query (Get Blogs by Topic):
 
   query getBlogsByTopic($blogTopic: String!) {
     blogs(topic: $blogTopic) {
@@ -78,6 +78,19 @@ app.listen(serverPort, () => {
 /* Sample GraphiQL Variables
 
   {"blogTopic": "React"}
+
+*/
+
+/* Sample GraphiQL Query (Get All Blogs):
+
+  query {
+    blogs {
+      title
+      author
+      topic
+      url
+    }
+  }
 
 */
 
