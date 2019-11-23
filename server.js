@@ -46,27 +46,27 @@ let blogData = [
 
 const getBlog = (args) => {
   let id = args.id
-  return blogData.find(b => b.id === id)
+  return blogData.find(blog => blog.id === id)
 }
 
 const getBlogs = (args) => {
   if(args.topic) {
     let topic = args.topic
-    return blogData.filter(b => b.topic === topic)
+    return blogData.filter(blog => blog.topic === topic)
   }else {
     return blogData
   }
-  return blogData.find(b => b.id === id)
+  return blogData.find(blog => blog.id === id)
 }
 
 const updateBlogTopic = ({id, topic}) => {
-  blogData.map(b => {
-    if(b.id === id) {
-      b.topic = topic
-      return b
+  blogData.map(blog => {
+    if(blog.id === id) {
+      blog.topic = topic
+      return blog
     }
   })
-  return blogData.find(b => b.id === id)
+  return blogData.find(blog => blog.id === id)
 }
 
 // Root Resolver
@@ -88,7 +88,7 @@ app.use(gqlEndpoint, express_graphql({
 }))
 
 app.listen(serverPort, () => {
-  let message = `express graphql now running on http://localhost:${serverPort}${gqlEndpoint}`
+  let message = `GraphQL server now running on http://localhost:${serverPort}${gqlEndpoint}`
   console.log(message)
 })
 
