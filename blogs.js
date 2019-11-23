@@ -36,7 +36,7 @@ module.exports = [
   },
   {
     id: 6,
-    title: 'Writing From a Beginner Developer's Perspective',
+    title: 'Writing From a Beginner Developer\'s Perspective',
     author: 'Eric Bishard',
     topic: 'Writing',
     url: 'https://www.reactstateofmind.com/writing-from-a-beginner-developer-s-perspective'

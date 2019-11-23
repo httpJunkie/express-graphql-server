@@ -6,19 +6,15 @@ module.exports = {
     return blogData.find(blog => blog.id === id)
   },
   getBlogs: (args) => {
-    if(args.topic) {
-      let topic = args.topic
-      return blogData.filter(blog => blog.topic === topic)
-    }else {
-      return blogData
-    }
+      return args.topic 
+        ? blogData.filter(blog => blog.topic === args.topic)
+        : blogData
   },
   updateBlogTopic: ({id, topic}) => {
     blogData.map(blog => {
-      if(blog.id === id) {
-        blog.topic = topic
-        return blog
-      }
+      return blog.id === id 
+        ? blog.topic = topic
+        : blog
     })
     return blogData.find(blog => blog.id === id)
   }
