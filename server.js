@@ -27,7 +27,6 @@ const root = {
   updateBlogTopic: updateBlogTopic
 }
 
-// Create an Express Server and GraphQL endpoint
 const serverPort = 4000
 const serverUrl = '/graphql'
 
